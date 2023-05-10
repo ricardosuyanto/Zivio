@@ -1,0 +1,21 @@
+.jumbotron{
+    background-image: url("../assets/clothes.jpg");
+    background-size: cover;
+    padding: 50px;
+}
+
+.header-font{
+    color: white;
+}
+
+.btn-style {
+    border-color: white;
+    border-width: 5px;
+    background-color: transparent;
+    transition: background-color 0.3s;
+}
+
+.btn-style:hover, .btn-style:focus, .btn-style:active {
+    border-color: gray;
+    background-color: transparent;
+}
