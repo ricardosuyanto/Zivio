@@ -25,7 +25,6 @@ public class item {
     private String description;
     private BigDecimal price;
     private byte picture;
-    private int stock;
     private Timestamp createdDate;
     private Timestamp updatedDate;
 
@@ -42,7 +41,6 @@ public class item {
         this.description = description;
         this.price = price;
         this.picture = picture;
-        this.stock = stock;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
@@ -87,14 +85,6 @@ public class item {
         this.picture = picture;
     }
 
-    public int getStock() {
-        return this.stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
     public Timestamp getCreatedDate() {
         return this.createdDate;
     }
@@ -136,11 +126,6 @@ public class item {
         return this;
     }
 
-    public item stock(int stock) {
-        setStock(stock);
-        return this;
-    }
-
     public item createdDate(Timestamp createdDate) {
         setCreatedDate(createdDate);
         return this;
@@ -161,13 +146,13 @@ public class item {
         item item = (item) o;
         return id == item.id && Objects.equals(item_name, item.item_name)
                 && Objects.equals(description, item.description) && Objects.equals(price, item.price)
-                && picture == item.picture && stock == item.stock && Objects.equals(createdDate, item.createdDate)
+                && picture == item.picture && Objects.equals(createdDate, item.createdDate)
                 && Objects.equals(updatedDate, item.updatedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item_name, description, price, picture, stock, createdDate, updatedDate);
+        return Objects.hash(id, item_name, description, price, picture, createdDate, updatedDate);
     }
 
     @Override
@@ -178,7 +163,6 @@ public class item {
                 ", description='" + getDescription() + "'" +
                 ", price='" + getPrice() + "'" +
                 ", picture='" + getPicture() + "'" +
-                ", stock='" + getStock() + "'" +
                 ", createdDate='" + getCreatedDate() + "'" +
                 ", updatedDate='" + getUpdatedDate() + "'" +
                 "}";
