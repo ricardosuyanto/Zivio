@@ -9,7 +9,7 @@ function Header(){
             <hr className="my-4 header-font"></hr>
             <p className="header-font">Designs that appeals, Cost that doesn't hurt, Quality that lasts forever</p>
             <p className="lead header-font">
-            <a className="btn btn-secondary btn-lg btn-style" href="#" role="button">See more</a>
+            <a className="btn btn-secondary btn-lg btn-style" href="#" role="button">SHOP NOW</a>
             </p>
         </div>  
     );
