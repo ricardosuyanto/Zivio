@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.security.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +22,24 @@ public class user {
     private String email;
     private char gender;
     private String phone;
+    private Timestamp createdDate;
+    private Timestamp updatedDate;
+
+    public Timestamp getUpdatedDate() {
+        return this.updatedDate;
+    }
+
+    public void setUpdatedDate(Timestamp updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public Timestamp getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public user() {
     }
