@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.Objects;
 public class item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int item_id;
     private String item_name;
     private String description;
     private BigDecimal price;
@@ -28,29 +29,34 @@ public class item {
     private Timestamp createdDate;
     private Timestamp updatedDate;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "item_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<itemDetail> items = new ArrayList<>();
+
+    @OneToOne(mappedBy = "item_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private itemType itemType;
 
     public item() {
     }
 
-    public item(int id, String item_name, String description, BigDecimal price, byte picture, int stock,
-            Timestamp createdDate, Timestamp updatedDate) {
-        this.id = id;
+    public item(int item_id, String item_name, String description, BigDecimal price, byte picture,
+            Timestamp createdDate, Timestamp updatedDate, List<itemDetail> items, itemType itemType) {
+        this.item_id = item_id;
         this.item_name = item_name;
         this.description = description;
         this.price = price;
         this.picture = picture;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.items = items;
+        this.itemType = itemType;
     }
 
-    public int getId() {
-        return this.id;
+    public int getItem_id() {
+        return this.item_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setItem_id(int item_id) {
+        this.item_id = item_id;
     }
 
     public String getItem_name() {
@@ -101,8 +107,24 @@ public class item {
         this.updatedDate = updatedDate;
     }
 
-    public item id(int id) {
-        setId(id);
+    public List<itemDetail> getItems() {
+        return this.items;
+    }
+
+    public void setItems(List<itemDetail> items) {
+        this.items = items;
+    }
+
+    public itemType getItemType() {
+        return this.itemType;
+    }
+
+    public void setItemType(itemType itemType) {
+        this.itemType = itemType;
+    }
+
+    public item item_id(int item_id) {
+        setItem_id(item_id);
         return this;
     }
 
@@ -136,6 +158,16 @@ public class item {
         return this;
     }
 
+    public item items(List<itemDetail> items) {
+        setItems(items);
+        return this;
+    }
+
+    public item itemType(itemType itemType) {
+        setItemType(itemType);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -144,27 +176,30 @@ public class item {
             return false;
         }
         item item = (item) o;
-        return id == item.id && Objects.equals(item_name, item.item_name)
+        return item_id == item.item_id && Objects.equals(item_name, item.item_name)
                 && Objects.equals(description, item.description) && Objects.equals(price, item.price)
                 && picture == item.picture && Objects.equals(createdDate, item.createdDate)
-                && Objects.equals(updatedDate, item.updatedDate);
+                && Objects.equals(updatedDate, item.updatedDate) && Objects.equals(items, item.items)
+                && Objects.equals(itemType, item.itemType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, item_name, description, price, picture, createdDate, updatedDate);
+        return Objects.hash(item_id, item_name, description, price, picture, createdDate, updatedDate, items, itemType);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
+                " item_id='" + getItem_id() + "'" +
                 ", item_name='" + getItem_name() + "'" +
                 ", description='" + getDescription() + "'" +
                 ", price='" + getPrice() + "'" +
                 ", picture='" + getPicture() + "'" +
                 ", createdDate='" + getCreatedDate() + "'" +
                 ", updatedDate='" + getUpdatedDate() + "'" +
+                ", items='" + getItems() + "'" +
+                ", itemType='" + getItemType() + "'" +
                 "}";
     }
 

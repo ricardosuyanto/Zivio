@@ -20,7 +20,7 @@ import java.util.Objects;
 public class color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int color_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemDetail_id", nullable = false)
@@ -31,18 +31,18 @@ public class color {
     public color() {
     }
 
-    public color(int id, itemDetail itemDetail, String colorName) {
-        this.id = id;
+    public color(int color_id, itemDetail itemDetail, String colorName) {
+        this.color_id = color_id;
         this.itemDetail = itemDetail;
         this.colorName = colorName;
     }
 
-    public int getId() {
-        return this.id;
+    public int getColor_id() {
+        return this.color_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setColor_id(int color_id) {
+        this.color_id = color_id;
     }
 
     public itemDetail getItemDetail() {
@@ -61,8 +61,8 @@ public class color {
         this.colorName = colorName;
     }
 
-    public color id(int id) {
-        setId(id);
+    public color color_id(int color_id) {
+        setColor_id(color_id);
         return this;
     }
 
@@ -84,19 +84,19 @@ public class color {
             return false;
         }
         color color = (color) o;
-        return id == color.id && Objects.equals(itemDetail, color.itemDetail)
+        return color_id == color.color_id && Objects.equals(itemDetail, color.itemDetail)
                 && Objects.equals(colorName, color.colorName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemDetail, colorName);
+        return Objects.hash(color_id, itemDetail, colorName);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
+                " color_id='" + getColor_id() + "'" +
                 ", itemDetail='" + getItemDetail() + "'" +
                 ", colorName='" + getColorName() + "'" +
                 "}";

@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Objects;
 
@@ -20,36 +21,44 @@ import java.util.Objects;
 public class itemDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int itemDetail_id;
     private int stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
     private item item;
 
-    @OneToMany(mappedBy = "itemDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id", nullable = false)
+    private cart cart;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_id", nullable = false)
+    private transaction transaction;
+
+    @OneToMany(mappedBy = "itemDetail_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<color> color = new ArrayList<>();
 
-    @OneToMany(mappedBy = "itemDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "itemDetail_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<size> size = new ArrayList<>();
 
     public itemDetail() {
     }
 
-    public itemDetail(int id, int stock, item item, List<color> color, List<size> size) {
-        this.id = id;
+    public itemDetail(int itemDetail_id, int stock, item item, List<color> color, List<size> size) {
+        this.itemDetail_id = itemDetail_id;
         this.stock = stock;
         this.item = item;
         this.color = color;
         this.size = size;
     }
 
-    public int getId() {
-        return this.id;
+    public int getItemDetail_id() {
+        return this.itemDetail_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setItemDetail_id(int itemDetail_id) {
+        this.itemDetail_id = itemDetail_id;
     }
 
     public int getStock() {
@@ -84,8 +93,8 @@ public class itemDetail {
         this.size = size;
     }
 
-    public itemDetail id(int id) {
-        setId(id);
+    public itemDetail itemDetail_id(int itemDetail_id) {
+        setItemDetail_id(itemDetail_id);
         return this;
     }
 
@@ -117,19 +126,20 @@ public class itemDetail {
             return false;
         }
         itemDetail itemDetail = (itemDetail) o;
-        return id == itemDetail.id && stock == itemDetail.stock && Objects.equals(item, itemDetail.item)
-                && Objects.equals(color, itemDetail.color) && Objects.equals(size, itemDetail.size);
+        return itemDetail_id == itemDetail.itemDetail_id && stock == itemDetail.stock
+                && Objects.equals(item, itemDetail.item) && Objects.equals(color, itemDetail.color)
+                && Objects.equals(size, itemDetail.size);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, stock, item, color, size);
+        return Objects.hash(itemDetail_id, stock, item, color, size);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
+                " itemDetail_id='" + getItemDetail_id() + "'" +
                 ", stock='" + getStock() + "'" +
                 ", item='" + getItem() + "'" +
                 ", color='" + getColor() + "'" +

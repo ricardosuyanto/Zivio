@@ -15,7 +15,7 @@ import java.util.Objects;
 public class size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int size_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemDetail_id", nullable = false)
@@ -26,18 +26,18 @@ public class size {
     public size() {
     }
 
-    public size(int id, itemDetail itemDetail, String size) {
-        this.id = id;
+    public size(int size_id, itemDetail itemDetail, String size) {
+        this.size_id = size_id;
         this.itemDetail = itemDetail;
         this.size = size;
     }
 
-    public int getId() {
-        return this.id;
+    public int getSize_id() {
+        return this.size_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSize_id(int size_id) {
+        this.size_id = size_id;
     }
 
     public itemDetail getItemDetail() {
@@ -56,8 +56,8 @@ public class size {
         this.size = size;
     }
 
-    public size id(int id) {
-        setId(id);
+    public size size_id(int size_id) {
+        setSize_id(size_id);
         return this;
     }
 
@@ -79,18 +79,19 @@ public class size {
             return false;
         }
         size size = (size) o;
-        return id == size.id && Objects.equals(itemDetail, size.itemDetail) && Objects.equals(size, size.size);
+        return size_id == size.size_id && Objects.equals(itemDetail, size.itemDetail)
+                && Objects.equals(size, size.size);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemDetail, size);
+        return Objects.hash(size_id, itemDetail, size);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
+                " size_id='" + getSize_id() + "'" +
                 ", itemDetail='" + getItemDetail() + "'" +
                 ", size='" + getSize() + "'" +
                 "}";
