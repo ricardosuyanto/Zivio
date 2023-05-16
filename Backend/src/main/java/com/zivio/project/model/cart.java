@@ -24,8 +24,8 @@ public class cart {
     private int cart_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private user user;
+    @JoinColumn(name = "users_id", nullable = false)
+    private Users users;
 
     private Timestamp createdDate;
     private Timestamp updatedDate;
@@ -38,10 +38,10 @@ public class cart {
     public cart() {
     }
 
-    public cart(int cart_id, user user, Timestamp createdDate, Timestamp updatedDate, int cartQuantity,
+    public cart(int cart_id, Users users, Timestamp createdDate, Timestamp updatedDate, int cartQuantity,
             List<itemDetail> itemDetail) {
         this.cart_id = cart_id;
-        this.user = user;
+        this.users = users;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.cartQuantity = cartQuantity;
@@ -56,12 +56,12 @@ public class cart {
         this.cart_id = cart_id;
     }
 
-    public user getUser() {
-        return this.user;
+    public Users getUsers() {
+        return this.users;
     }
 
-    public void setUser(user user) {
-        this.user = user;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     public Timestamp getCreatedDate() {
@@ -101,8 +101,8 @@ public class cart {
         return this;
     }
 
-    public cart user(user user) {
-        setUser(user);
+    public cart users(Users users) {
+        setUsers(users);
         return this;
     }
 
@@ -134,21 +134,21 @@ public class cart {
             return false;
         }
         cart cart = (cart) o;
-        return cart_id == cart.cart_id && Objects.equals(user, cart.user)
+        return cart_id == cart.cart_id && Objects.equals(users, cart.users)
                 && Objects.equals(createdDate, cart.createdDate) && Objects.equals(updatedDate, cart.updatedDate)
                 && cartQuantity == cart.cartQuantity && Objects.equals(itemDetail, cart.itemDetail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cart_id, user, createdDate, updatedDate, cartQuantity, itemDetail);
+        return Objects.hash(cart_id, users, createdDate, updatedDate, cartQuantity, itemDetail);
     }
 
     @Override
     public String toString() {
         return "{" +
                 " cart_id='" + getCart_id() + "'" +
-                ", user='" + getUser() + "'" +
+                ", users='" + getUsers() + "'" +
                 ", createdDate='" + getCreatedDate() + "'" +
                 ", updatedDate='" + getUpdatedDate() + "'" +
                 ", cartQuantity='" + getCartQuantity() + "'" +

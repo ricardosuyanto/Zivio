@@ -10,8 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,22 +29,18 @@ public class transaction {
     private int Quantity;
     private String transactionCode;
 
-    @OneToOne(mappedBy = "transaction_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private status status;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "itemDetail_id", nullable = false)
-    private itemDetail itemDetail;
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<status> status = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private user user;
+    @JoinColumn(name = "users_id", nullable = false)
+    private Users users;
 
     public transaction() {
     }
 
     public transaction(int transaction_id, String total_price, Timestamp createdDate, Timestamp updatedDate,
-            int Quantity, String transactionCode, status status, itemDetail itemDetail) {
+            int Quantity, String transactionCode, List<status> status, Users users) {
         this.transaction_id = transaction_id;
         this.total_price = total_price;
         this.createdDate = createdDate;
@@ -49,7 +48,7 @@ public class transaction {
         this.Quantity = Quantity;
         this.transactionCode = transactionCode;
         this.status = status;
-        this.itemDetail = itemDetail;
+        this.users = users;
     }
 
     public int getTransaction_id() {
@@ -100,20 +99,20 @@ public class transaction {
         this.transactionCode = transactionCode;
     }
 
-    public status getStatus() {
+    public List<status> getStatus() {
         return this.status;
     }
 
-    public void setStatus(status status) {
+    public void setStatus(List<status> status) {
         this.status = status;
     }
 
-    public itemDetail getItemDetail() {
-        return this.itemDetail;
+    public Users getUsers() {
+        return this.users;
     }
 
-    public void setItemDetail(itemDetail itemDetail) {
-        this.itemDetail = itemDetail;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     public transaction transaction_id(int transaction_id) {
@@ -146,13 +145,13 @@ public class transaction {
         return this;
     }
 
-    public transaction status(status status) {
+    public transaction status(List<status> status) {
         setStatus(status);
         return this;
     }
 
-    public transaction itemDetail(itemDetail itemDetail) {
-        setItemDetail(itemDetail);
+    public transaction users(Users users) {
+        setUsers(users);
         return this;
     }
 
@@ -168,13 +167,13 @@ public class transaction {
                 && Objects.equals(createdDate, transaction.createdDate)
                 && Objects.equals(updatedDate, transaction.updatedDate) && Quantity == transaction.Quantity
                 && Objects.equals(transactionCode, transaction.transactionCode)
-                && Objects.equals(status, transaction.status) && Objects.equals(itemDetail, transaction.itemDetail);
+                && Objects.equals(status, transaction.status) && Objects.equals(users, transaction.users);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(transaction_id, total_price, createdDate, updatedDate, Quantity, transactionCode, status,
-                itemDetail);
+                users);
     }
 
     @Override
@@ -187,7 +186,7 @@ public class transaction {
                 ", Quantity='" + getQuantity() + "'" +
                 ", transactionCode='" + getTransactionCode() + "'" +
                 ", status='" + getStatus() + "'" +
-                ", itemDetail='" + getItemDetail() + "'" +
+                ", users='" + getUsers() + "'" +
                 "}";
     }
 

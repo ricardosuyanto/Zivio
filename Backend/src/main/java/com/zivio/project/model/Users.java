@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -14,14 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.management.relation.Role;
-
 @Entity
 @Table(name = "users")
-public class user {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int user_id;
+    private int users_id;
     private String username;
     private String password;
     private String name;
@@ -32,22 +31,23 @@ public class user {
     private Timestamp createdDate;
     private Timestamp updatedDate;
 
-    @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Role role;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roles_id", referencedColumnName = "roles_id")
+    private Roles roles;
 
-    @OneToMany(mappedBy = "transaction_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<transaction> transactions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cart_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<cart> cart = new ArrayList<>();
 
-    public user() {
+    public Users() {
     }
 
-    public user(int user_id, String username, String password, String name, String bio, String email, char gender,
-            String phone, Timestamp createdDate, Timestamp updatedDate, Role role, List<transaction> transactions,
+    public Users(int users_id, String username, String password, String name, String bio, String email, char gender,
+            String phone, Timestamp createdDate, Timestamp updatedDate, Roles roles, List<transaction> transactions,
             List<cart> cart) {
-        this.user_id = user_id;
+        this.users_id = users_id;
         this.username = username;
         this.password = password;
         this.name = name;
@@ -57,17 +57,17 @@ public class user {
         this.phone = phone;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.role = role;
+        this.roles = roles;
         this.transactions = transactions;
         this.cart = cart;
     }
 
-    public int getUser_id() {
-        return this.user_id;
+    public int getUsers_id() {
+        return this.users_id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUsers_id(int users_id) {
+        this.users_id = users_id;
     }
 
     public String getUsername() {
@@ -142,12 +142,12 @@ public class user {
         this.updatedDate = updatedDate;
     }
 
-    public Role getRole() {
-        return this.role;
+    public Roles getRoles() {
+        return this.roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Roles roles) {
+        this.roles = roles;
     }
 
     public List<transaction> getTransactions() {
@@ -166,67 +166,67 @@ public class user {
         this.cart = cart;
     }
 
-    public user user_id(int user_id) {
-        setUser_id(user_id);
+    public Users users_id(int users_id) {
+        setUsers_id(users_id);
         return this;
     }
 
-    public user username(String username) {
+    public Users username(String username) {
         setUsername(username);
         return this;
     }
 
-    public user password(String password) {
+    public Users password(String password) {
         setPassword(password);
         return this;
     }
 
-    public user name(String name) {
+    public Users name(String name) {
         setName(name);
         return this;
     }
 
-    public user bio(String bio) {
+    public Users bio(String bio) {
         setBio(bio);
         return this;
     }
 
-    public user email(String email) {
+    public Users email(String email) {
         setEmail(email);
         return this;
     }
 
-    public user gender(char gender) {
+    public Users gender(char gender) {
         setGender(gender);
         return this;
     }
 
-    public user phone(String phone) {
+    public Users phone(String phone) {
         setPhone(phone);
         return this;
     }
 
-    public user createdDate(Timestamp createdDate) {
+    public Users createdDate(Timestamp createdDate) {
         setCreatedDate(createdDate);
         return this;
     }
 
-    public user updatedDate(Timestamp updatedDate) {
+    public Users updatedDate(Timestamp updatedDate) {
         setUpdatedDate(updatedDate);
         return this;
     }
 
-    public user role(Role role) {
-        setRole(role);
+    public Users roles(Roles roles) {
+        setRoles(roles);
         return this;
     }
 
-    public user transactions(List<transaction> transactions) {
+    public Users transactions(List<transaction> transactions) {
         setTransactions(transactions);
         return this;
     }
 
-    public user cart(List<cart> cart) {
+    public Users cart(List<cart> cart) {
         setCart(cart);
         return this;
     }
@@ -235,28 +235,28 @@ public class user {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof user)) {
+        if (!(o instanceof Users)) {
             return false;
         }
-        user user = (user) o;
-        return user_id == user.user_id && Objects.equals(username, user.username)
-                && Objects.equals(password, user.password) && Objects.equals(name, user.name)
-                && Objects.equals(bio, user.bio) && Objects.equals(email, user.email) && gender == user.gender
-                && Objects.equals(phone, user.phone) && Objects.equals(createdDate, user.createdDate)
-                && Objects.equals(updatedDate, user.updatedDate) && Objects.equals(role, user.role)
-                && Objects.equals(transactions, user.transactions) && Objects.equals(cart, user.cart);
+        Users users = (Users) o;
+        return users_id == users.users_id && Objects.equals(username, users.username)
+                && Objects.equals(password, users.password) && Objects.equals(name, users.name)
+                && Objects.equals(bio, users.bio) && Objects.equals(email, users.email) && gender == users.gender
+                && Objects.equals(phone, users.phone) && Objects.equals(createdDate, users.createdDate)
+                && Objects.equals(updatedDate, users.updatedDate) && Objects.equals(roles, users.roles)
+                && Objects.equals(transactions, users.transactions) && Objects.equals(cart, users.cart);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, username, password, name, bio, email, gender, phone, createdDate, updatedDate,
-                role, transactions, cart);
+        return Objects.hash(users_id, username, password, name, bio, email, gender, phone, createdDate, updatedDate,
+                roles, transactions, cart);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " user_id='" + getUser_id() + "'" +
+                " users_id='" + getUsers_id() + "'" +
                 ", username='" + getUsername() + "'" +
                 ", password='" + getPassword() + "'" +
                 ", name='" + getName() + "'" +
@@ -266,7 +266,7 @@ public class user {
                 ", phone='" + getPhone() + "'" +
                 ", createdDate='" + getCreatedDate() + "'" +
                 ", updatedDate='" + getUpdatedDate() + "'" +
-                ", role='" + getRole() + "'" +
+                ", roles='" + getRoles() + "'" +
                 ", transactions='" + getTransactions() + "'" +
                 ", cart='" + getCart() + "'" +
                 "}";

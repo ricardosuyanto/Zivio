@@ -1,11 +1,9 @@
 package com.zivio.project.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Objects;
@@ -20,8 +18,7 @@ public class itemType {
     private String createdDate;
     private String updatedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", nullable = false)
+    @OneToOne(mappedBy = "itemType")
     private item item;
 
     public itemType() {

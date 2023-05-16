@@ -24,28 +24,23 @@ public class itemDetail {
     private int itemDetail_id;
     private int stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", nullable = false)
-    private item item;
+    @OneToMany(mappedBy = "itemDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<item> item = new ArrayList<>();
+
+    @OneToMany(mappedBy = "itemDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<color> color = new ArrayList<>();
+
+    @OneToMany(mappedBy = "itemDetail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<size> size = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
     private cart cart;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_id", nullable = false)
-    private transaction transaction;
-
-    @OneToMany(mappedBy = "itemDetail_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<color> color = new ArrayList<>();
-
-    @OneToMany(mappedBy = "itemDetail_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<size> size = new ArrayList<>();
-
     public itemDetail() {
     }
 
-    public itemDetail(int itemDetail_id, int stock, item item, List<color> color, List<size> size) {
+    public itemDetail(int itemDetail_id, int stock, List<item> item, List<color> color, List<size> size) {
         this.itemDetail_id = itemDetail_id;
         this.stock = stock;
         this.item = item;
@@ -69,11 +64,11 @@ public class itemDetail {
         this.stock = stock;
     }
 
-    public item getItem() {
+    public List<item> getItem() {
         return this.item;
     }
 
-    public void setItem(item item) {
+    public void setItem(List<item> item) {
         this.item = item;
     }
 
@@ -103,7 +98,7 @@ public class itemDetail {
         return this;
     }
 
-    public itemDetail item(item item) {
+    public itemDetail item(List<item> item) {
         setItem(item);
         return this;
     }

@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Objects;
 
@@ -21,18 +21,18 @@ public class status {
     private Timestamp createdDate;
     private Timestamp updatedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_id", nullable = false)
-    private itemDetail itemDetail;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemDetail_id", nullable = false)
+    private transaction transaction;
 
     public status() {
     }
 
-    public status(int status_id, Timestamp createdDate, Timestamp updatedDate, itemDetail itemDetail) {
+    public status(int status_id, Timestamp createdDate, Timestamp updatedDate) {
         this.status_id = status_id;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.itemDetail = itemDetail;
+
     }
 
     public int getStatus_id() {
@@ -59,14 +59,6 @@ public class status {
         this.updatedDate = updatedDate;
     }
 
-    public itemDetail getItemDetail() {
-        return this.itemDetail;
-    }
-
-    public void setItemDetail(itemDetail itemDetail) {
-        this.itemDetail = itemDetail;
-    }
-
     public status status_id(int status_id) {
         setStatus_id(status_id);
         return this;
@@ -82,26 +74,9 @@ public class status {
         return this;
     }
 
-    public status itemDetail(itemDetail itemDetail) {
-        setItemDetail(itemDetail);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof status)) {
-            return false;
-        }
-        status status = (status) o;
-        return status_id == status.status_id && Objects.equals(createdDate, status.createdDate)
-                && Objects.equals(updatedDate, status.updatedDate) && Objects.equals(itemDetail, status.itemDetail);
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(status_id, createdDate, updatedDate, itemDetail);
+        return Objects.hash(status_id, createdDate, updatedDate);
     }
 
     @Override
@@ -110,7 +85,7 @@ public class status {
                 " status_id='" + getStatus_id() + "'" +
                 ", createdDate='" + getCreatedDate() + "'" +
                 ", updatedDate='" + getUpdatedDate() + "'" +
-                ", itemDetail='" + getItemDetail() + "'" +
+                "'" +
                 "}";
     }
 

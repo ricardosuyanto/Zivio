@@ -5,15 +5,15 @@ import java.security.Timestamp;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,17 +29,19 @@ public class item {
     private Timestamp createdDate;
     private Timestamp updatedDate;
 
-    @OneToMany(mappedBy = "item_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<itemDetail> items = new ArrayList<>();
-
-    @OneToOne(mappedBy = "item_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "itemType_id", referencedColumnName = "itemType_id")
     private itemType itemType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemDetail_id", nullable = false)
+    private itemDetail itemDetail;
 
     public item() {
     }
 
     public item(int item_id, String item_name, String description, BigDecimal price, byte picture,
-            Timestamp createdDate, Timestamp updatedDate, List<itemDetail> items, itemType itemType) {
+            Timestamp createdDate, Timestamp updatedDate, itemType itemType) {
         this.item_id = item_id;
         this.item_name = item_name;
         this.description = description;
@@ -47,7 +49,6 @@ public class item {
         this.picture = picture;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.items = items;
         this.itemType = itemType;
     }
 
@@ -107,14 +108,6 @@ public class item {
         this.updatedDate = updatedDate;
     }
 
-    public List<itemDetail> getItems() {
-        return this.items;
-    }
-
-    public void setItems(List<itemDetail> items) {
-        this.items = items;
-    }
-
     public itemType getItemType() {
         return this.itemType;
     }
@@ -158,11 +151,6 @@ public class item {
         return this;
     }
 
-    public item items(List<itemDetail> items) {
-        setItems(items);
-        return this;
-    }
-
     public item itemType(itemType itemType) {
         setItemType(itemType);
         return this;
@@ -179,13 +167,12 @@ public class item {
         return item_id == item.item_id && Objects.equals(item_name, item.item_name)
                 && Objects.equals(description, item.description) && Objects.equals(price, item.price)
                 && picture == item.picture && Objects.equals(createdDate, item.createdDate)
-                && Objects.equals(updatedDate, item.updatedDate) && Objects.equals(items, item.items)
-                && Objects.equals(itemType, item.itemType);
+                && Objects.equals(updatedDate, item.updatedDate) && Objects.equals(itemType, item.itemType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(item_id, item_name, description, price, picture, createdDate, updatedDate, items, itemType);
+        return Objects.hash(item_id, item_name, description, price, picture, createdDate, updatedDate, itemType);
     }
 
     @Override
@@ -198,7 +185,6 @@ public class item {
                 ", picture='" + getPicture() + "'" +
                 ", createdDate='" + getCreatedDate() + "'" +
                 ", updatedDate='" + getUpdatedDate() + "'" +
-                ", items='" + getItems() + "'" +
                 ", itemType='" + getItemType() + "'" +
                 "}";
     }
