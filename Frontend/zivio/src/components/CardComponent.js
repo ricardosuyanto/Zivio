@@ -18,7 +18,7 @@ function CardComponent() {
             <Row gutter={20} style={{padding:"50px", justifyContent:"center"}}>
                  {data.map((item => 
                     <Col span={5}  xs={24} sm={12} md={8} lg={6} xl={5} key={item.id}>
-                    <Card className="custom-card" cover={<img alt="example" src={item.img} />}>
+                    <Card cover={<img alt="example" src={item.img} />}>
                     {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
                         <button className="btn btn-outline-dark btn-lg btn-shop"  role="button">{item.title}</button>
                     </Card>
