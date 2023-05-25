@@ -1,6 +1,7 @@
 package com.zivio.project.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +11,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import java.security.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ import java.util.Objects;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int users_id;
+    private long users_id;
     private String username;
     private String password;
     private String name;
@@ -28,24 +29,28 @@ public class Users {
     private String email;
     private char gender;
     private String phone;
-    private Timestamp createdDate;
-    private Timestamp updatedDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "roles_id", referencedColumnName = "roles_id")
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdDate;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedDate;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "roles_id", referencedColumnName = "id")
     private Roles roles;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<transaction> transactions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<cart> cart = new ArrayList<>();
 
     public Users() {
     }
 
-    public Users(int users_id, String username, String password, String name, String bio, String email, char gender,
-            String phone, Timestamp createdDate, Timestamp updatedDate, Roles roles, List<transaction> transactions,
+    public Users(long users_id, String username, String password, String name, String bio, String email, char gender,
+            String phone, Instant createdDate, Instant updatedDate, Roles roles, List<transaction> transactions,
             List<cart> cart) {
         this.users_id = users_id;
         this.username = username;
@@ -62,11 +67,11 @@ public class Users {
         this.cart = cart;
     }
 
-    public int getUsers_id() {
+    public long getUsers_id() {
         return this.users_id;
     }
 
-    public void setUsers_id(int users_id) {
+    public void setUsers_id(long users_id) {
         this.users_id = users_id;
     }
 
@@ -126,19 +131,19 @@ public class Users {
         this.phone = phone;
     }
 
-    public Timestamp getCreatedDate() {
+    public Instant getCreatedDate() {
         return this.createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Instant getUpdatedDate() {
         return this.updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Instant updatedDate) {
         this.updatedDate = updatedDate;
     }
 
@@ -166,7 +171,7 @@ public class Users {
         this.cart = cart;
     }
 
-    public Users users_id(int users_id) {
+    public Users users_id(long users_id) {
         setUsers_id(users_id);
         return this;
     }
@@ -206,12 +211,12 @@ public class Users {
         return this;
     }
 
-    public Users createdDate(Timestamp createdDate) {
+    public Users createdDate(Instant createdDate) {
         setCreatedDate(createdDate);
         return this;
     }
 
-    public Users updatedDate(Timestamp updatedDate) {
+    public Users updatedDate(Instant updatedDate) {
         setUpdatedDate(updatedDate);
         return this;
     }

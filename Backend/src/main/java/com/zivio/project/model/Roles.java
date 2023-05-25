@@ -13,27 +13,24 @@ import java.util.Objects;
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int roles_id;
-    private String roles_name;
+    private int id;
 
-    @OneToOne(mappedBy = "roles")
-    private Users user;
+    private String roles_name;
 
     public Roles() {
     }
 
-    public Roles(int roles_id, String roles_name, Users user) {
-        this.roles_id = roles_id;
+    public Roles(int id, String roles_name) {
+        this.id = id;
         this.roles_name = roles_name;
-        this.user = user;
     }
 
-    public int getRoles_id() {
-        return this.roles_id;
+    public int getId() {
+        return this.id;
     }
 
-    public void setRoles_id(int roles_id) {
-        this.roles_id = roles_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRoles_name() {
@@ -44,26 +41,13 @@ public class Roles {
         this.roles_name = roles_name;
     }
 
-    public Users getUser() {
-        return this.user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
-
-    public Roles roles_id(int roles_id) {
-        setRoles_id(roles_id);
+    public Roles id(int id) {
+        setId(id);
         return this;
     }
 
     public Roles roles_name(String roles_name) {
         setRoles_name(roles_name);
-        return this;
-    }
-
-    public Roles user(Users user) {
-        setUser(user);
         return this;
     }
 
@@ -75,21 +59,19 @@ public class Roles {
             return false;
         }
         Roles roles = (Roles) o;
-        return roles_id == roles.roles_id && Objects.equals(roles_name, roles.roles_name)
-                && Objects.equals(user, roles.user);
+        return id == roles.id && Objects.equals(roles_name, roles.roles_name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roles_id, roles_name, user);
+        return Objects.hash(id, roles_name);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " roles_id='" + getRoles_id() + "'" +
+                " id='" + getId() + "'" +
                 ", roles_name='" + getRoles_name() + "'" +
-                ", user='" + getUser() + "'" +
                 "}";
     }
 

@@ -15,8 +15,6 @@ public class itemType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemType_id;
     private String type_name;
-    private String createdDate;
-    private String updatedDate;
 
     @OneToOne(mappedBy = "itemType")
     private item item;
@@ -24,11 +22,9 @@ public class itemType {
     public itemType() {
     }
 
-    public itemType(int itemType_id, String type_name, String createdDate, String updatedDate, item item) {
+    public itemType(int itemType_id, String type_name, item item) {
         this.itemType_id = itemType_id;
         this.type_name = type_name;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
         this.item = item;
     }
 
@@ -46,22 +42,6 @@ public class itemType {
 
     public void setType_name(String type_name) {
         this.type_name = type_name;
-    }
-
-    public String getCreatedDate() {
-        return this.createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getUpdatedDate() {
-        return this.updatedDate;
-    }
-
-    public void setUpdatedDate(String updatedDate) {
-        this.updatedDate = updatedDate;
     }
 
     public item getItem() {
@@ -82,16 +62,6 @@ public class itemType {
         return this;
     }
 
-    public itemType createdDate(String createdDate) {
-        setCreatedDate(createdDate);
-        return this;
-    }
-
-    public itemType updatedDate(String updatedDate) {
-        setUpdatedDate(updatedDate);
-        return this;
-    }
-
     public itemType item(item item) {
         setItem(item);
         return this;
@@ -106,13 +76,12 @@ public class itemType {
         }
         itemType itemType = (itemType) o;
         return itemType_id == itemType.itemType_id && Objects.equals(type_name, itemType.type_name)
-                && Objects.equals(createdDate, itemType.createdDate)
-                && Objects.equals(updatedDate, itemType.updatedDate) && Objects.equals(item, itemType.item);
+                && Objects.equals(item, itemType.item);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(itemType_id, type_name, createdDate, updatedDate, item);
+        return Objects.hash(itemType_id, type_name, item);
     }
 
     @Override
@@ -120,8 +89,6 @@ public class itemType {
         return "{" +
                 " itemType_id='" + getItemType_id() + "'" +
                 ", type_name='" + getType_name() + "'" +
-                ", createdDate='" + getCreatedDate() + "'" +
-                ", updatedDate='" + getUpdatedDate() + "'" +
                 ", item='" + getItem() + "'" +
                 "}";
     }

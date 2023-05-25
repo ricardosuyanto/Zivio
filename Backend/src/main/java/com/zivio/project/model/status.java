@@ -18,8 +18,6 @@ public class status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int status_id;
-    private Timestamp createdDate;
-    private Timestamp updatedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemDetail_id", nullable = false)
@@ -28,11 +26,9 @@ public class status {
     public status() {
     }
 
-    public status(int status_id, Timestamp createdDate, Timestamp updatedDate) {
+    public status(int status_id, transaction transaction) {
         this.status_id = status_id;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-
+        this.transaction = transaction;
     }
 
     public int getStatus_id() {
@@ -43,20 +39,12 @@ public class status {
         this.status_id = status_id;
     }
 
-    public Timestamp getCreatedDate() {
-        return this.createdDate;
+    public transaction getTransaction() {
+        return this.transaction;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Timestamp getUpdatedDate() {
-        return this.updatedDate;
-    }
-
-    public void setUpdatedDate(Timestamp updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setTransaction(transaction transaction) {
+        this.transaction = transaction;
     }
 
     public status status_id(int status_id) {
@@ -64,28 +52,32 @@ public class status {
         return this;
     }
 
-    public status createdDate(Timestamp createdDate) {
-        setCreatedDate(createdDate);
-        return this;
-    }
-
-    public status updatedDate(Timestamp updatedDate) {
-        setUpdatedDate(updatedDate);
+    public status transaction(transaction transaction) {
+        setTransaction(transaction);
         return this;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof status)) {
+            return false;
+        }
+        status status = (status) o;
+        return status_id == status.status_id && Objects.equals(transaction, status.transaction);
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(status_id, createdDate, updatedDate);
+        return Objects.hash(status_id, transaction);
     }
 
     @Override
     public String toString() {
         return "{" +
                 " status_id='" + getStatus_id() + "'" +
-                ", createdDate='" + getCreatedDate() + "'" +
-                ", updatedDate='" + getUpdatedDate() + "'" +
-                "'" +
+                ", transaction='" + getTransaction() + "'" +
                 "}";
     }
 

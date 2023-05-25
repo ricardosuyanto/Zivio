@@ -1,10 +1,12 @@
 package com.zivio.project.model;
 
 import java.security.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +29,11 @@ public class cart {
     @JoinColumn(name = "users_id", nullable = false)
     private Users users;
 
-    private Timestamp createdDate;
-    private Timestamp updatedDate;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdDate;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedDate;
 
     private int cartQuantity;
 
@@ -38,7 +43,7 @@ public class cart {
     public cart() {
     }
 
-    public cart(int cart_id, Users users, Timestamp createdDate, Timestamp updatedDate, int cartQuantity,
+    public cart(int cart_id, Users users, Instant createdDate, Instant updatedDate, int cartQuantity,
             List<itemDetail> itemDetail) {
         this.cart_id = cart_id;
         this.users = users;
@@ -64,19 +69,19 @@ public class cart {
         this.users = users;
     }
 
-    public Timestamp getCreatedDate() {
+    public Instant getCreatedDate() {
         return this.createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Instant getUpdatedDate() {
         return this.updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Instant updatedDate) {
         this.updatedDate = updatedDate;
     }
 
@@ -106,12 +111,12 @@ public class cart {
         return this;
     }
 
-    public cart createdDate(Timestamp createdDate) {
+    public cart createdDate(Instant createdDate) {
         setCreatedDate(createdDate);
         return this;
     }
 
-    public cart updatedDate(Timestamp updatedDate) {
+    public cart updatedDate(Instant updatedDate) {
         setUpdatedDate(updatedDate);
         return this;
     }

@@ -1,8 +1,10 @@
 package com.zivio.project.model;
 
 import java.security.Timestamp;
+import java.time.Instant;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,8 +26,11 @@ public class transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transaction_id;
     private String total_price;
-    private Timestamp createdDate;
-    private Timestamp updatedDate;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdDate;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedDate;
     private int Quantity;
     private String transactionCode;
 
@@ -39,8 +44,8 @@ public class transaction {
     public transaction() {
     }
 
-    public transaction(int transaction_id, String total_price, Timestamp createdDate, Timestamp updatedDate,
-            int Quantity, String transactionCode, List<status> status, Users users) {
+    public transaction(int transaction_id, String total_price, Instant createdDate, Instant updatedDate, int Quantity,
+            String transactionCode, List<status> status, Users users) {
         this.transaction_id = transaction_id;
         this.total_price = total_price;
         this.createdDate = createdDate;
@@ -67,19 +72,19 @@ public class transaction {
         this.total_price = total_price;
     }
 
-    public Timestamp getCreatedDate() {
+    public Instant getCreatedDate() {
         return this.createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Instant getUpdatedDate() {
         return this.updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Instant updatedDate) {
         this.updatedDate = updatedDate;
     }
 
@@ -125,12 +130,12 @@ public class transaction {
         return this;
     }
 
-    public transaction createdDate(Timestamp createdDate) {
+    public transaction createdDate(Instant createdDate) {
         setCreatedDate(createdDate);
         return this;
     }
 
-    public transaction updatedDate(Timestamp updatedDate) {
+    public transaction updatedDate(Instant updatedDate) {
         setUpdatedDate(updatedDate);
         return this;
     }
