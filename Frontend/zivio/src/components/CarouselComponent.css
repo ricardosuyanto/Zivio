@@ -1,0 +1,35 @@
+.jumbotron-carousel{
+    background-size: cover;
+    padding: 50px;
+    height: 350px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.jumbotron-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
+.header-font{
+    color: white;
+}
+
+.btn-style {
+    border-color: white;
+    border-width: 5px;
+    background-color: transparent;
+    transition: background-color 0.3s;
+}
+
+.btn-style:hover, .btn-style:focus, .btn-style:active {
+    border-color: gray;
+    background-color: transparent;
+}
+

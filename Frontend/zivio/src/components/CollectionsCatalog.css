@@ -1,0 +1,63 @@
+.jumbotron-search{
+    background-size: cover;
+    /*  */padding: 5vh;
+}
+
+.header-font{
+    color: white;
+}
+
+.btn-style {
+    border-color: white;
+    border-width: 5px;
+    background-color: transparent;
+    transition: background-color 0.3s;
+}
+
+.btn-style:hover, .btn-style:focus, .btn-style:active {
+    border-color: gray;
+    background-color: transparent;
+}
+
+
+.split-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .split-image {
+    flex: 50%;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    height: 50vh;
+    border: solid 1px;
+    position: relative;
+  }
+  
+  .gender-option-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px;
+    color: white;
+  }
+
+.jumbotron-option {
+    /* filter: blur(5px); */
+}
+
+@media (max-width: 768px) {
+    .split-container {
+      width: 100%;
+    }
+  
+    .split-image {
+        flex: 100%;
+    }
+  }
