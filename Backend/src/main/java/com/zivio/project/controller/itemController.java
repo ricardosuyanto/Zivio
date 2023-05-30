@@ -1,6 +1,9 @@
 package com.zivio.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import org.springframework.web.bind.annotation.*;
 
 import com.zivio.project.model.item;
@@ -27,6 +30,13 @@ public class itemController {
 
     @PostMapping
     public item createitems(@RequestBody item items) {
+        try {
+            // Decode base64 string
+            byte[] imageBytes = Base64.getDecoder().decode(items.getPicture());
+            items.setPicture(imageBytes);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid base64 string: " + e.getMessage());
+        }
         return itemRepo.save(items);
     }
 

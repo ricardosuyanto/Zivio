@@ -38,7 +38,7 @@ public class item {
     private itemType itemType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "itemDetail_id", nullable = false)
+    @JoinColumn(name = "itemDetail_id", nullable = true)
     private itemDetail itemDetail;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
